@@ -1,0 +1,88 @@
+.data
+msg1: .asciiz "\nCual es tu renta:\n"
+msg3: .asciiz "ERROR"
+msg2: .asciiz "\nTienes que pagar:"
+
+.text
+main:
+
+#print string
+li $v0, 4
+la $a0, msg1
+syscall
+
+
+#read entero
+li $v0, 5
+syscall
+move $t1, $v0
+
+#print string
+li $v0, 4
+la $a0, msg2
+syscall
+
+
+ble $t1,10000 LABEL_IF #Si el primero es menor
+ble $t1,20000 LABEL_IF_II #Si el primero es menor
+ble $t1,35000 LABEL_IF_III #Si el primero es menor
+ble $t1,60000 LABEL_IF_IV #Si el primero es menor
+LABEL_ELSE:
+li $t5, 45
+mul $t5,$t1,$t5
+div $t6,$t5,100
+b END_LABEL_IF_
+
+END_LABEL_IF_:
+li $v0, 1
+move $a0, $t6
+syscall
+jr exit
+
+
+LABEL_IF:
+li $t5, 5
+mul $t5,$t1,$t5
+div $t6,$t5,100
+li $v0, 1
+move $a0, $t6
+syscall
+jr exit
+
+LABEL_IF_II:
+li $t5, 15
+mul $t5,$t1,$t5
+div $t6,$t5,100
+li $v0, 1
+move $a0, $t6
+syscall
+jr exit
+
+LABEL_IF_III:
+li $t5, 20
+mul $t5,$t1,$t5
+div $t6,$t5,100
+li $v0, 1
+move $a0, $t6
+syscall
+jr exit
+
+LABEL_IF_IV:
+li $t5, 30
+mul $t5,$t1,$t5
+div $t6,$t5,100
+li $v0, 1
+move $a0, $t6
+syscall
+jr exit
+
+
+
+
+
+
+
+
+
+
+
