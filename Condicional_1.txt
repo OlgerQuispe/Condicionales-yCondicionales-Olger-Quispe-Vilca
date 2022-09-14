@@ -1,0 +1,33 @@
+.data
+msg1: .asciiz "\nCual es tu edad:"
+msg2: .asciiz "\nEres mayor de edad."
+msg3: .asciiz "\nEres menor de edad."
+
+.text
+
+main:
+
+#print string
+li $v0, 4
+la $a0, msg1
+syscall
+
+#read entero
+li $v0, 5
+syscall
+move $t1, $v0
+li $t2,18
+
+bge $t1, $t2, LABEL_IF #Si el primero es mayor
+LABEL_ELSE:
+la $a0, msg3
+b END_LABEL_IF
+
+LABEL_IF:
+la $a0, msg2
+
+END_LABEL_IF:
+li $v0,4
+syscall
+
+jr $ra
