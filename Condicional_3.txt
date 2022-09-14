@@ -1,0 +1,57 @@
+.data
+dividendo: .asciiz "\nIngrese el dividendo:"
+divisor: .asciiz "\nIngrese el divisor:\n"
+msg: .asciiz "\nError no se puede dividir por 0."
+
+.text
+
+main:
+li $t5,1
+
+#print string
+li $v0, 4
+la $a0, dividendo
+syscall
+
+#leer dividendo
+li $v0, 5
+syscall
+move $t1, $v0
+
+#print string
+li $v0, 4
+la $a0, divisor
+syscall
+
+#leer 
+li $v0, 5
+syscall
+move $t2, $v0
+
+bge $t2, $t5, LABEL_IF
+LABEL_ELSE:
+la $a0, msg
+b END_LABEL_IF
+
+LABEL_IF:
+div $t6,$t1,$t2
+b END_LABEL_IF_
+
+
+END_LABEL_IF:
+li $v0, 4
+syscall
+
+END_LABEL_IF_:
+li $v0, 1
+move $a0,$t6
+syscall
+
+jr $ra
+
+
+
+
+
+
+
