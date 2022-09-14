@@ -1,0 +1,104 @@
+.data
+
+msg1: .asciiz "\nBienvenido a la pizzeria Bella Napoli. Tipos de pizza - (1)Vegetariana- (2)Novegetariana\n"
+msg2: .asciiz "\nIntroduce el número correspondiente al tipo de pizza que quieres:\n"
+msg3: .asciiz "\nIngredientes de pizzas vegetarianas (1)Pimiento ()Tofu\n"
+msg4: .asciiz "\nPizza vegetariana con mozzarella, tomate y "
+msg5: .asciiz "\nIngredientes de pizzas NOvegetarianas (1)Peperoni (2)Jamon ()Salmon\n"
+pimienta: .asciiz "pimienta"
+tofu: .asciiz "tofu"
+jamon: .asciiz "jamon"
+salmon: .asciiz "salmon"
+peperoni: .asciiz "peperoni"
+
+
+.text
+main:
+
+#print string
+li $v0, 4
+la $a0, msg1
+syscall
+
+#print string
+li $v0, 4
+la $a0, msg2
+syscall
+
+#read entero
+li $v0, 5
+syscall
+move $t1, $v0
+
+beq $t1, 1, LABEL_IF_VEGE #Vegetariana
+bgt $t1, 1, LABEL_IF_NOVEGE #No vegetariana
+LABEL_IF_VEGE:
+#print string
+li $v0, 4
+la $a0, msg3
+syscall
+#read entero
+li $v0, 5
+syscall
+move $t1, $v0
+#print string
+li $v0, 4
+la $a0, msg4
+syscall
+beq $t1, 1, LABEL_IF_END_VEGE
+LABEL_ELSE_VEGE:
+#print string
+li $v0, 4
+la $a0, tofu
+syscall
+jr exit
+LABEL_IF_END_VEGE:
+#print string
+li $v0, 4
+la $a0, pimienta
+syscall
+jr exit
+
+LABEL_IF_NOVEGE:
+#print string
+li $v0, 4
+la $a0, msg5
+syscall
+#read entero
+li $v0, 5
+syscall
+move $t1, $v0
+#print string
+li $v0, 4
+la $a0, msg4
+syscall
+beq $t1, 1, LABEL_IF_END_NOVEGE1
+beq $t1, 2, LABEL_IF_END_NOVEGE2
+LABEL_ELSE:
+#print string
+li $v0, 4
+la $a0, salmon
+syscall
+jr exit
+LABEL_IF_END_NOVEGE2:
+#print string
+li $v0, 4
+la $a0, jamon
+syscall
+jr exit
+LABEL_IF_END_NOVEGE1:
+#print string
+li $v0, 4
+la $a0, peperoni
+syscall
+jr exit
+
+
+
+
+
+
+
+
+
+
