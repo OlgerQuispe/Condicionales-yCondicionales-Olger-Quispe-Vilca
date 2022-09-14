@@ -1,0 +1,34 @@
+.data
+msg: .asciiz "\nIntroduce una palabra:\n"
+buffer: .space 20
+
+.text
+main:
+
+#print string
+li $v0, 4
+la $a0, msg
+syscall
+
+li $a1, 10 #maximo numero de caracteres a leer
+li $v0, 8 #para leer un string
+la $a0, buffer
+syscall
+
+li $v0, 4 #para mostrar un string
+syscall
+
+li $t1, 0 #index
+li $t2, 10 #iterations
+
+Loop:
+beq $t2,$t1, Exit
+
+li $v0, 4
+syscall
+
+add $t1, $t1, 1 #i++
+j Loop
+Exit:
+
+jr $ra
