@@ -1,0 +1,43 @@
+.data
+msg: .asciiz "\nCuantos años tienes:\n"
+msg2: .asciiz "\nHas cumplido:"
+msg3: .asciiz "\nedad.\n"
+.text
+
+main:
+
+#print string
+li $v0, 4
+la $a0, msg
+syscall
+
+# recibimos int
+li $v0,5
+syscall
+move $t0, $v0
+
+li $t1, 0 #index
+add $t2,$t0,0 #iterations
+
+Loop:
+beq $t2,$t1, Exit
+
+#print string
+li $v0, 4
+la $a0, msg2
+syscall
+
+move $a0,$t0
+li $v0, 1
+syscall
+
+#print string
+li $v0, 4
+la $a0, msg3
+syscall
+
+add $t1, $t1, 1 #i++
+j Loop
+Exit:
+
+jr $ra
