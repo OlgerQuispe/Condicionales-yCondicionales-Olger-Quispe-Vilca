@@ -1,0 +1,46 @@
+.data
+msg1: .asciiz "\nIntroduce tu edad:\n"
+msg2: .asciiz "\nEl precio de la entrada es:\n"
+.text
+
+main:
+
+#print string
+li $v0, 4
+la $a0, msg1
+syscall
+
+#read entero
+li $v0, 5
+syscall
+move $t1, $v0
+
+#print string
+li $v0, 4
+la $a0, msg2
+syscall
+
+ble $t1, 4, LABEL_IF #Si el primero es menor
+ble $t1, 18, LABEL_IF_ #Si el primero es menor
+LABEL_ELSE:
+li $a0, 10
+b END_LABEL_ELSE
+
+END_LABEL_ELSE:
+li $v0, 1
+syscall
+jr exit
+
+LABEL_IF:
+li $a0, 0
+li $v0, 1
+syscall
+jr exit
+
+LABEL_IF_:
+li $a0, 4
+li $v0, 1
+syscall
+jr exit
+
+
