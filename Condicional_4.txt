@@ -1,0 +1,33 @@
+.data 
+par: .asciiz "\nEs par.\n" 
+impar: .asciiz "\nEs impar.\n" 
+msg: .asciiz "El número introducido es:\n " 
+.text 
+
+main: 
+
+addi $t0, $0, 2 
+la $a0, msg 
+li $2, 4 
+syscall 
+
+li $2, 5 
+syscall 
+
+div $2, $t0 
+mfhi $t1 
+beq $t1, $0, es_par 
+la $a0, impar 
+li $2, 4 
+syscall 
+j exit
+
+es_par: 
+la $a0, par 
+li $2, 4 
+syscall 
+
+j exit 
+exit: 
+li $2, 10 
+syscall
