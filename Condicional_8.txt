@@ -1,0 +1,73 @@
+.data
+msg1: .asciiz "\nIntroduce tu puntuacion:\n"
+ina: .asciiz "Inaceptable"
+ace: .asciiz "Aceptable"
+meri: .asciiz "Meritorio"
+msg2: .asciiz "\nTu rendimiento es:\n"
+msg3: .asciiz "\nTe corresponde cobrar:\n"
+
+fp1: .double 0.4
+fp2: .double 0.6
+
+
+.text
+
+main:
+
+#print string
+li $v0, 4
+la $a0, msg1
+syscall
+
+#read real
+li $v0, 6
+syscall
+move $f1, $v0
+
+li $t6, 2400
+li.s $f0,0.4
+li.s $f2,0.6
+
+beq $t1, 0, INACEPTABLE 
+c.eq.s $f1, $f0, ACEPTABLE  
+bge $t1, $f2, MERITORIO
+
+INACEPTABLE:
+#print string
+li $v0, 4
+la $a0, msg2
+syscall
+#print string
+li $v0, 4
+la $a0, ina
+syscall
+#print string
+li $v0, 4
+la $a0, msg3
+syscall
+#multiplicacion
+mul $a0,$t1, $t6
+li $v0, 1
+syscall
+jr exit
+
+ACEPTABLE:
+#print string
+li $v0, 4
+la $a0, msg2
+syscall
+#print string
+li $v0, 4
+la $a0, ace
+syscall
+#print string
+li $v0, 4
+la $a0, msg3
+syscall
+#multiplicacion
+mul $f12,$t1, $t6
+li $v0, 2
+syscall
+jr exit
+
+ 
