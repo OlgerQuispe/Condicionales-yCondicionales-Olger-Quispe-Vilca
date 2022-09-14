@@ -1,0 +1,53 @@
+.data
+msg1: .asciiz "\nCual es tu edad:\n"
+msg2: .asciiz "\nCuales son tus ingresos mensuales:\n"
+msg3: .asciiz "\nTienes que cotizar.\n"
+msg4: .asciiz "\nNo tienes que cotizar.\n"
+
+.text
+
+main:
+
+#imprimir string
+li $v0, 4
+la $a0, msg1
+syscall
+
+#read entero
+li $v0, 5
+syscall
+move $t1, $v0
+
+#imprimir string
+li $v0, 4
+la $a0, msg2
+syscall
+
+#read entero
+li $v0, 5
+syscall
+move $t2, $v0
+
+bge $t1, 16, LABEL_IF #Si el primero es mayor
+LABEL_ELSE:
+la $a0, msg4
+b END_LABEL_IF
+
+LABEL_IF:
+bge $t2, 1000, LABEL_IF_
+
+END_LABEL_IF:
+li $v0,4
+syscall
+
+LABEL_IF_:
+la $a0, msg3
+b END_LABEL_IF_
+
+END_LABEL_IF_:
+li $v0,4
+syscall
+
+jr $ra
+
+
