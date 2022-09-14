@@ -1,0 +1,44 @@
+.data
+msg1: .asciiz "\nComo te llamas:\n"
+msg2: .asciiz "\nCual es tu sexo (M o H):\n"
+buffer: .space 20
+
+.text
+
+main:
+
+#imprimir string
+li $v0, 4
+la $a0, msg1
+syscall
+
+# read string
+li $a1, 10
+li $v0, 8
+la $a0, buffer
+syscall
+
+#imprimir string
+li $v0, 4
+syscall
+
+#imprimir string
+li $v0, 4
+la $a0, msg2
+syscall
+
+# read string
+li $a1, 10
+li $v0, 8
+la $a0, buffer
+syscall
+
+
+#imprimir string
+li $v0, 4
+syscall
+
+#Comparar
+
+
+
